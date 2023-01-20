@@ -1,24 +1,48 @@
 -- Neovim options
 --
+local vo = vim.opt
+local vg = vim.g
 
+local options = {
+    backup = false,
+    writebackup = false,
+    swapfile = false,
+    clipboard = 'unnamedplus',
+    fileencoding = 'utf-8',
+    termguicolors = true,
+
+    hlsearch = true,
+    ignorecase = true,
+    smartcase = true,
+    smartindent = true,
+
+    splitbelow = true,
+    splitright = true,
+
+    mouse = 'a',
+    pumheight = 10,
+    showmode = false,
+    showtabline = 2,
+
+    undofile = true,
+    updatetime = 300,
+
+    expandtab = true,
+    shiftwidth = 4,
+    tabstop = 4,
+
+    cursorline = true,
+    number = true,
+    relativenumber = true,
+    numberwidth = 4,
+    signcolumn = 'yes',
+    wrap = false,
+    scrolloff = 8,
+}
 -- disable netrw so we can use nvim-tree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vg.loaded_netrw = 1
+vg.loaded_netrwPlugin = 1
 
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.mouse = 'a'
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.hlsearch = true
-vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
-
-vim.opt.termguicolors = true
-
--- vim.cmd[[colorscheme catppuccin-mocha]]
---vim.cmd[[colorscheme tokyonight-night]]
-
+for k, v in pairs(options) do
+    vo[k] = v
+end

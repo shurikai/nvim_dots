@@ -1,5 +1,5 @@
 return {
-    'akinso/bufferline.nvim',
+    'akinsho/bufferline.nvim',
     config = function()
         require('bufferline').setup {
             options = {
