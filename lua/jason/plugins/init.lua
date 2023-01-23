@@ -39,4 +39,5 @@ return {
 
     -- [[ Git ]] --
     "lewis6991/gitsigns.nvim", -- gutter icons for git status per line
+    'TimUntersberger/neogit',  -- Like fugitive, but in Lua?
 }
