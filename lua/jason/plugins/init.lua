@@ -1,6 +1,7 @@
 -- Plugins that require little to no configuration are imported here. For more complex
 -- plugins, see *.lua files in this directory.
 return {
+
     -- Base plugins and dependencies
     'nvim-lua/popup.nvim',    -- Implementation of the Popup API from vim in lua
     'nvim-lua/plenary.nvim',  -- Useful lua functions used by lots of plugins
@@ -40,4 +41,7 @@ return {
     -- [[ Git ]] --
     "lewis6991/gitsigns.nvim", -- gutter icons for git status per line
     'TimUntersberger/neogit',  -- Like fugitive, but in Lua?
+
+    'nvim-treesitter/nvim-treesitter-refactor',
+
 }
