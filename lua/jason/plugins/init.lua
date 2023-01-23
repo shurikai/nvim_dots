@@ -37,6 +37,11 @@ return {
     "williamboman/mason.nvim", -- Mason for managing feature installs
     "williamboman/mason-lspconfig.nvim",
     "jose-elias-alvarez/null-ls.nvim",
+    {
+        'ray-x/lsp_signature.nvim',
+        event = 'BufRead',
+        config = function() require'lsp_signature'.on_attach() end,
+    },
 
     -- [[ Git ]] --
     "lewis6991/gitsigns.nvim", -- gutter icons for git status per line

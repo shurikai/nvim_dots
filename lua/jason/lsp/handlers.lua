@@ -85,6 +85,22 @@ M.on_attach = function(client, bufnr)
 		return
 	end
 	illuminate.on_attach(client)
+
+    local navic = require('nvim-navic')
+    local sumneko_setup = require('lsp.settings.sumneko_lua')
+    sumneko_setup.on_attach = function(client, bufnr)
+        navic.attach(client, bufnr)
+    end
+
+    require('lspconfig').sumneko_lua.setup {
+        sumneko_setup,
+    }
+
+    require('lspconfig').tsserver.setup {
+        on_attach = function(client, bufnr)
+            navic.attach(client, bufnr)
+        end
+    }
 end
 
 return M
