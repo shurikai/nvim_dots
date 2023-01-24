@@ -48,5 +48,6 @@ return {
     'TimUntersberger/neogit',  -- Like fugitive, but in Lua?
 
     'nvim-treesitter/nvim-treesitter-refactor',
+    'christianchiarulli/lua-dev.nvim'
 
 }

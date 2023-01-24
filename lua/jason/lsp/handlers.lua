@@ -51,6 +51,15 @@ M.setup = function()
 	})
 end
 
+local function attach_navic(client, bufnr)
+    -- vim.g.navic_silence = true
+    local status_ok, navic = pcall(require, 'nvim-navic')
+    if status_ok then
+        return
+    end
+    navic.attach(client, bufnr)
+end
+
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 	local keymap = vim.api.nvim_buf_set_keymap
@@ -71,6 +80,9 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+	lsp_keymaps(bufnr)
+    attach_navic(client, bufnr)
+
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
@@ -79,28 +91,49 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
-	lsp_keymaps(bufnr)
 	local status_ok, illuminate = pcall(require, "illuminate")
 	if not status_ok then
 		return
 	end
 	illuminate.on_attach(client)
 
-    local navic = require('nvim-navic')
-    local sumneko_setup = require('lsp.settings.sumneko_lua')
-    sumneko_setup.on_attach = function(client, bufnr)
-        navic.attach(client, bufnr)
-    end
-
-    require('lspconfig').sumneko_lua.setup {
-        sumneko_setup,
-    }
-
-    require('lspconfig').tsserver.setup {
-        on_attach = function(client, bufnr)
-            navic.attach(client, bufnr)
-        end
-    }
+    -- local navic = require('nvim-navic')
+    -- local sumneko_setup = require('settings.sumneko_lua')
+    -- sumneko_setup.on_attach = function(c, b)
+    --     navic.attach(c, b)
+    -- end
+    --
+    -- -- require('lspconfig').sumneko_lua.setup {
+    -- --     sumneko_setup,
+    -- -- }
+    -- --
+    -- require('lspconfig').sumneko_lua.setup {
+    --     settings = {
+    --         Lua = {
+    --             diagnostics = {
+    --                 globals = { "vim" },
+    --             },
+    --             workspace = {
+    --                 library = {
+    --                     [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+    --                     [vim.fn.stdpath "config" .. "/lua"] = true,
+    --                 },
+    --             },
+    --             telemetry = {
+    --                 enable = false,
+    --             },
+    --         },
+    --         on_attach = function (c, b)
+    --             navic.attach(c, b)
+    --         end
+    --     },
+    -- }
+    --
+    -- require('lspconfig').tsserver.setup {
+    --     on_attach = function(c, b)
+    --         navic.attach(c, b)
+    --     end
+    -- }
 end
 
 return M
