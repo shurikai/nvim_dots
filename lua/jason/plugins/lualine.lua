@@ -1,7 +1,8 @@
+local winbar = require("jason.winbar")
+
 return {
     'nvim-lualine/lualine.nvim',
     config = function()
-        local navic = require('nvim-navic')
         require('lualine').setup({
             options = {
                 icons_enabled = true,
@@ -20,16 +21,13 @@ return {
                 refresh = {
                     statusline = 1000,
                     tabline = 1000,
-                    winbar = 1000,
+                    winbar = 200,
                 }
             },
             sections = {
                 lualine_a = {'mode'},
                 lualine_b = {'branch', 'diff', 'diagnostics'},
                 lualine_c = {'filename'},
-                -- lualine_c = {
-                --     { navic.get_location, cond = navic.is_available },
-                -- },
                 lualine_x = {'encoding', 'fileformat', 'filetype'},
                 lualine_y = {'progress'},
                 lualine_z = {'location'}
@@ -43,11 +41,7 @@ return {
                 lualine_z = {}
             },
             tabline = {},
-            winbar = {
-                lualine_x = {
-                    { navic.get_location, cond = navic.is_available },
-                },
-            },
+            winbar = {},
             inactive_winbar = {},
             extensions = { 'nvim-tree', 'toggleterm', 'quickfix' },
         })

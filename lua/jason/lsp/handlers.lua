@@ -49,15 +49,7 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "rounded",
 	})
-end
-
-local function attach_navic(client, bufnr)
-    -- vim.g.navic_silence = true
-    local status_ok, navic = pcall(require, 'nvim-navic')
-    if status_ok then
-        return
-    end
-    navic.attach(client, bufnr)
+    print("Leaving handlers.setup")
 end
 
 local function lsp_keymaps(bufnr)
@@ -80,8 +72,8 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+    print('LSP attaching to buffer.')
 	lsp_keymaps(bufnr)
-    attach_navic(client, bufnr)
 
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
@@ -97,43 +89,10 @@ M.on_attach = function(client, bufnr)
 	end
 	illuminate.on_attach(client)
 
-    -- local navic = require('nvim-navic')
-    -- local sumneko_setup = require('settings.sumneko_lua')
-    -- sumneko_setup.on_attach = function(c, b)
-    --     navic.attach(c, b)
-    -- end
-    --
-    -- -- require('lspconfig').sumneko_lua.setup {
-    -- --     sumneko_setup,
-    -- -- }
-    -- --
-    -- require('lspconfig').sumneko_lua.setup {
-    --     settings = {
-    --         Lua = {
-    --             diagnostics = {
-    --                 globals = { "vim" },
-    --             },
-    --             workspace = {
-    --                 library = {
-    --                     [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-    --                     [vim.fn.stdpath "config" .. "/lua"] = true,
-    --                 },
-    --             },
-    --             telemetry = {
-    --                 enable = false,
-    --             },
-    --         },
-    --         on_attach = function (c, b)
-    --             navic.attach(c, b)
-    --         end
-    --     },
-    -- }
-    --
-    -- require('lspconfig').tsserver.setup {
-    --     on_attach = function(c, b)
-    --         navic.attach(c, b)
-    --     end
-    -- }
+    if client.server_capabilities.documentSymbolProvider then
+        local navic = require "nvim-navic"
+        navic.attach(client, bufnr)
+    end
 end
 
 return M

@@ -10,6 +10,7 @@ local options = {
     clipboard = 'unnamedplus',
     fileencoding = 'utf-8',
     termguicolors = true,
+    background = 'dark',
 
     hlsearch = true,
     ignorecase = true,
